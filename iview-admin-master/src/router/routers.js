@@ -83,7 +83,7 @@ export default [
         path: 'design_manage',
         name: 'design_manage',
         meta: {
-          icon: 'ios-infinite',
+          icon: 'ios-create-outline',
           title: '设计管理'
         },
         component: () => import('@/view/components/design-manage/design-manage.vue')
@@ -96,47 +96,47 @@ export default [
           title: '拖拽列表'
         },
         component: () => import('@/view/components/drag-list/drag-list.vue')
-      },
-      {
-        path: 'org_tree_page',
-        name: 'org_tree_page',
-        meta: {
-          icon: 'ios-people',
-          title: '组织结构树'
-        },
-        component: () => import('@/view/components/org-tree')
       }
+      // {
+      //   path: 'org_tree_page',
+      //   name: 'org_tree_page',
+      //   meta: {
+      //     icon: 'ios-people',
+      //     title: '组织结构树'
+      //   },
+      //   component: () => import('@/view/components/org-tree')
+      // }
     ]
   },
-  {
-    path: '/update',
-    name: 'update',
-    meta: {
-      icon: 'md-cloud-upload',
-      title: '数据上传'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'update_table_page',
-        name: 'update_table_page',
-        meta: {
-          icon: 'ios-document',
-          title: '上传Csv'
-        },
-        component: () => import('@/view/update/update-table.vue')
-      },
-      {
-        path: 'update_paste_page',
-        name: 'update_paste_page',
-        meta: {
-          icon: 'md-clipboard',
-          title: '粘贴表格数据'
-        },
-        component: () => import('@/view/update/update-paste.vue')
-      }
-    ]
-  },
+  // {
+  //   path: '/update',
+  //   name: 'update',
+  //   meta: {
+  //     icon: 'md-cloud-upload',
+  //     title: '数据上传'
+  //   },
+  //   component: Main,
+  //   children: [
+  //     {
+  //       path: 'update_table_page',
+  //       name: 'update_table_page',
+  //       meta: {
+  //         icon: 'ios-document',
+  //         title: '上传Csv'
+  //       },
+  //       component: () => import('@/view/update/update-table.vue')
+  //     },
+  //     {
+  //       path: 'update_paste_page',
+  //       name: 'update_paste_page',
+  //       meta: {
+  //         icon: 'md-clipboard',
+  //         title: '粘贴表格数据'
+  //       },
+  //       component: () => import('@/view/update/update-paste.vue')
+  //     }
+  //   ]
+  // },
   {
     path: '/error_logger',
     name: 'error_logger',
@@ -187,6 +187,14 @@ export default [
         component: () => import('@/view/argu-page/query.vue')
       }
     ]
+  },
+  {
+    path: '/Detail',
+    name: 'Detail',
+    meta: {
+      hideInMenu: true
+    },
+    component: () => import('@/view/detail/detail.vue')
   },
   {
     path: '/401',
