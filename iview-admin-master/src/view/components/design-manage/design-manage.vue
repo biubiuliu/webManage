@@ -5,6 +5,9 @@
         <p>
           <Button type="primary" @click="getDetail">新建设计</Button>
         </p>
+        <p style="margin-top: 20px">
+          <Button type="primary" @click="getDetail2">新建设计2</Button>
+        </p>
       </Card>
       <Card :bordered="false" :dis-hover="true">
         <p>
@@ -27,6 +30,14 @@ export default {
       let routeData = this.$router.resolve(
         {
           path: '/detail'
+        }
+      )
+      window.open(routeData.href, '_blank')
+    },
+    getDetail2 () {
+      let routeData = this.$router.resolve(
+        {
+          path: '/details'
         }
       )
       window.open(routeData.href, '_blank')

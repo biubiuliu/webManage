@@ -32,13 +32,19 @@ export default {
     homeRoute: {},
     local: localRead('local'),
     errorList: [],
-    hasReadErrorPage: false
+    hasReadErrorPage: false,
+    selectedObj: null, // drag
   },
   getters: {
     menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.user.access),
-    errorCount: state => state.errorList.length
+    errorCount: state => state.errorList.length,
+    selectedObj: state => state.app.selectedObj, // drag
+    card: state => state.app.cardType === 1 ? state.app.frontCard : state.app.behindCard,
   },
   mutations: {
+    SET_SELECTEDOBJ: (state, object) => { // drag
+      state.selectedObj = object
+    },
     setBreadCrumb (state, route) {
       state.breadCrumbList = getBreadCrumbList(route, state.homeRoute)
     },
@@ -88,6 +94,9 @@ export default {
     }
   },
   actions: {
+    setSelectedObj({commit}, object) {
+      commit('SET_SELECTEDOBJ', object)
+    }, // drag
     addErrorLog ({ commit, rootState }, info) {
       if (!window.location.href.includes('error_logger_page')) commit('setHasReadErrorLoggerStatus', false)
       const { user: { token, userId, userName } } = rootState

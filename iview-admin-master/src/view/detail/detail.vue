@@ -38,25 +38,19 @@
         </ul>
       </div>
       <canvas id="myCanvas"
-              width="1500"
-              height="1000"
+              width="1000"
+              height="500"
               draggable=”true”
               @dragover.prevent="handleDragOver($event)"
                ref="select_frame">
         您的浏览器不支持!!!
       </canvas>
-      <Modal
-        v-model="modal1"
-        title="警告"
-        @on-ok="ok"
-        @on-cancel="cancel">
-        <p>确定要替换背景图片吗</p>
-      </Modal>
     </div>
 </template>
 
 <script>
 import { getGoodsType, getGoodsType2 } from '@/api/detail-list'
+import { fabric } from 'fabric'
 export default {
   name: 'detail',
   data () {
@@ -80,11 +74,13 @@ export default {
     }
   },
   mounted () {
+    // this.fabricFun()
     // this.handleGetGoodsType2(this.cat_id)
     this.handleGetGoodsType()
     this.$refs.select_frame.ondrop = (e) => {
       e.preventDefault() // 阻止离开时的浏览器默认行为
-      this.ondropFun(e)
+      // this.ondropFun(e)
+      this.fabricFun(e)
       console.log(e)
     }
   },
@@ -122,6 +118,25 @@ export default {
       this.imgVal = id
       console.log(this.imgVal)
     },
+    fabricFun () {
+      var canvas = new fabric.Canvas('myCanvas')
+      // var imgElement = document.getElementById('my-image')
+      fabric.Image.fromURL(this.ImgUrl, function (oImg) {
+        oImg.set({
+          borderColor: 'red',
+          cornerColor: 'green',
+          cornerSize: 6,
+          transparentCorners: false,
+          scaleX: canvas.width / oImg.width,
+          scaleY: canvas.height / oImg.height
+        })
+        // 设置背景
+        canvas.setBackgroundImage(oImg, canvas.renderAll.bind(canvas))
+        canvas.renderAll()
+        canvas.setActiveObject(canvas.item(0))
+        canvas.add(oImg)
+      })
+    },
     ok () {
       this.$Message.info('Clicked ok')
     },
@@ -136,14 +151,17 @@ export default {
       // /*ondrop拖拽元素进入目标元素头上并且松开鼠标的时候的时候*/
       // 获取canvas元素
       var cvs = document.getElementById('myCanvas')
+      // var btn = document.getElementById('btn')
       var ctx = cvs.getContext('2d')
+      // var id = ctx.getImageData(0, 0, 256, 256)
       // 创建image对象
       var img = new Image()
       img.src = this.ImgUrl
+      img.id = 'imgID'
+      console.log('img', e)
       // 待图片加载完后，将其显示在canvas上
       img.onload = function () {
         console.log('---------onload')
-        ctx.setTransform(1, 0, 0, 1, 0, 0)
         ctx.clearRect(0, 0, cvs.width, cvs.height)
         ctx.drawImage(img, 0, 0) // this即是imgObj,保持图片的原始大小：470*480
         // ctx.drawImage(this, 0, 0,1024,768) // 改变图片的大小到1024*768
@@ -188,8 +206,12 @@ export default {
     overflow: auto;
   }
   #myCanvas{
-    width: 1500px;
-    height: 1000px;
+    width: 1000px;
+    height: 500px;
+    margin-top: 100px;
     background: rgba(79, 205, 73, 0.39);
+  }
+  #imgID{
+    border: 1px solid red;
   }
 </style>
